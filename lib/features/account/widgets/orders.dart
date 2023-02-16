@@ -1,4 +1,5 @@
 import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/account/widgets/single_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -13,11 +14,10 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   //Temporary Lis
   List list = [
-    'www.google.com',
-    'www.google.com',
-    'www.google.com',
-    'www.google.com',
-    'www.google.com',
+    'https://unsplash.com/photos/XSlHJklgSe8',
+    'https://unsplash.com/photos/XSlHJklgSe8',
+    'https://unsplash.com/photos/XSlHJklgSe8',
+
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,11 @@ class _OrdersState extends State<Orders> {
           height: 170,
           padding: const EdgeInsets.only(left: 10, top: 20, right: 0),
           child: ListView.builder(
+            scrollDirection: Axis.horizontal,
             itemCount: list.length,
-            itemBuilder: ((context, index) {}),
+            itemBuilder: ((context, index) {
+              return SingleProduct(image: list[index]);
+            }),
           ),
         )
       ],
