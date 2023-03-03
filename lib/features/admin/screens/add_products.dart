@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:amazon_clone/common/widgets/custom_button.dart';
 import 'package:amazon_clone/common/widgets/custom_text_field.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +21,27 @@ class _AddProductScreenState extends State<AddProductScreen> {
   TextEditingController descriptionController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
+  AdminServices adminService = AdminServices();
+  final _addProductFormKey = GlobalKey<FormState>();
+  String category = 'Mobiles';
+
+  void sellProduct() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminService.sellProduct(
+        context: context,
+        name: productNameController.text,
+        description: descriptionController.text,
+        price: double.parse(priceController.text),
+        quantity: double.parse(quantityController.text),
+        category: category,
+        images: images,
+      );
+    }
+  }
 
   List<File> images = [];
   List<String> productCategories = ['Mobiles', 'Essentials', 'Appliances', 'Books', 'Fashion'];
-  String category = 'Mobiles';
+  
   @override
   void dispose() {
     super.dispose();
@@ -61,6 +78,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         children: [
           SingleChildScrollView(
             child: Form(
+              key: _addProductFormKey,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
@@ -83,7 +101,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         : GestureDetector(
                             onTap: () {
                               selectImages();
-                              print("Sahil");
+                            
                             },
                             child: DottedBorder(
                               color: Colors.black,
@@ -117,7 +135,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    CustomTextField(controller: productNameController, hintText: "Product Name"),
+                    CustomTextField(
+                      controller: productNameController,
+                      hintText: "Product Name",
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -163,7 +184,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                     CustomButton(
                       text: "Sell",
-                      onPressed: () {},
+                      onPressed: sellProduct,
                     )
                   ],
                 ),
