@@ -1,6 +1,9 @@
-const mongoose = require("mongoose");
-const authRouter = require("../route/auth");
+const mongoose = require('mongoose');
+const { productSchema } = require('./product');
+// const authRouter = require("../route/auth");
 mongoose.set('strictQuery', false);
+
+
 const userSchema = mongoose.Schema({
     name : {
         required : true,
@@ -37,10 +40,18 @@ const userSchema = mongoose.Schema({
     type : {
         type : String,
         default : "user",
-    }
+    },
 
-    //cart
+    cart : [
+        {
+            product : productSchema,
+            quantity : {
+                type : Number,
+                required : true,
+            }
+        }
+    ]
 })
 
-const User = mongoose.model("User", userSchema);
-module.exports= User;
+const User = mongoose.model('User', userSchema);
+module.exports = User;
