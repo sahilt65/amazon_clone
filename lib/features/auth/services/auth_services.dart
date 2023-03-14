@@ -61,8 +61,9 @@ class AuthService {
     required String password,
   }) async {
     try {
+      print("sanil");
       http.Response res = await http.post(
-        Uri.parse("http://localhost:3000/api/signin"),
+        Uri.parse("$uri/api/signin"),
         body: jsonEncode({
           "email": email,
           "password": password,

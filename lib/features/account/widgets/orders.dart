@@ -14,10 +14,9 @@ class Orders extends StatefulWidget {
 class _OrdersState extends State<Orders> {
   //Temporary Lis
   List list = [
-    'https://unsplash.com/photos/XSlHJklgSe8',
-    'https://unsplash.com/photos/XSlHJklgSe8',
-    'https://unsplash.com/photos/XSlHJklgSe8',
-
+    'https://www.xda-developers.com/files/2022/09/Deep-Purple-iPhone-14-Pro-Max.jpg',
+    'https://www.gizmochina.com/wp-content/uploads/2020/11/MacBook-Air-featured.jpg',
+    'https://d28i4xct2kl5lp.cloudfront.net/product_images/None_6bbe58a2-f5ff-4f5b-b21f-d3f18c405463.jpg',
   ];
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
-const authRouter = require("../route/auth");
 const ratingSchema = require("./rating");
-mongoose.set('strictQuery', false);
+
 const productSchema = mongoose.Schema({
     name : {
         required : true,
@@ -46,3 +45,5 @@ const productSchema = mongoose.Schema({
 
 const Product  = mongoose.model('Product', productSchema);
 module.exports = {Product, productSchema}; 
+
+// module.exports = mongoose.model('Product', productSchema)

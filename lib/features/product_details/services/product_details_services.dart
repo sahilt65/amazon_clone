@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:amazon_clone/Models/product.dart';
 import 'package:amazon_clone/Models/user.dart';
 import 'package:amazon_clone/constants/error_handeling.dart';
@@ -16,18 +15,20 @@ class ProductDetailServices {
     required Product product,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
+    print(userProvider.user.token);
+
     try {
       http.Response res = await http.post(
         Uri.parse("$uri/api/add-to-cart"),
         headers: {
-          'Content-Type': 'application/josn; charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
-        body: jsonEncode(
-          {
-            'id': product.id!,
-          },
-        ),
+          body: jsonEncode(
+            {
+              'id': product.id!,
+            },
+          )
       );
 
       // ignore: use_build_context_synchronously
@@ -36,11 +37,12 @@ class ProductDetailServices {
           context: context,
           onSuccess: () {
             User user = userProvider.user.copyWith(
-              cart: jsonDecode(res.body),
+              cart: jsonDecode(res.body)['cart'],
             );
             userProvider.setUserFromModel(user);
           });
     } catch (e) {
+      print(e);
       showSnackBar(context, e.toString());
     }
   }

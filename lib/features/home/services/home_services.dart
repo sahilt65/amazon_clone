@@ -57,7 +57,8 @@ class HomeServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     Product product = Product(name: '', description: '', quantity: 0, images: [], category: '', price: 0);
-
+    print("Sahiol");
+    print(userProvider.user.token);
     try {
       http.Response res = await http.get(
         Uri.parse("$uri/api/deal-of-day"),
@@ -67,6 +68,7 @@ class HomeServices {
         },
       );
 
+      print(res.body);
       // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,

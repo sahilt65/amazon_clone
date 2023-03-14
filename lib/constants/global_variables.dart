@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 String uri = "http://localhost:3000";
 
 class GlobalVariables {
-  //colors
+  
   static const appBarGradient = LinearGradient(colors: [
     Color.fromARGB(255, 29, 201, 192),
     Color.fromARGB(255, 125, 221, 216),
@@ -11,6 +11,11 @@ class GlobalVariables {
     0.5,
     1.0
   ]);
+
+  // static const appBarGradient = LinearGradient(
+  //     begin: Alignment(0.14107348024845123, 0.5028655529022217),
+  //     end: Alignment(-0.5028655529022217, 0.6614468097686768),
+  //     colors: [Color.fromRGBO(169, 224, 243, 1), Color.fromRGBO(105, 129, 202, 1), Color.fromRGBO(105, 129, 202, 1)]);
 
   static const secondaryColor = Color.fromRGBO(255, 153, 0, 1);
   static const backgroundColor = Colors.white;

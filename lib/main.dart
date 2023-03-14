@@ -1,4 +1,5 @@
 import 'package:amazon_clone/Models/product.dart';
+import 'package:amazon_clone/features/address/screens/address_screen.dart';
 import 'package:amazon_clone/features/admin/screens/admin_screen.dart';
 import 'package:amazon_clone/features/auth/screens/auth_screen.dart';
 import 'package:amazon_clone/features/cart/screens/cart_screen.dart';
@@ -53,12 +54,12 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         onGenerateRoute: ((settings) => generateRoute(settings)),
-      // home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-      //     ? Provider.of<UserProvider>(context).user.type == 'user'
-      //         ? const BottomBar()
-      //         : const AdminScreen()
-      //     : const AuthScreen(),
-        home: CartScreen()
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+              ? const BottomBar()
+              : const AdminScreen()
+          : const AuthScreen(),
+      // home: AddressScreen(amount: "5000")
         //   searchQuery: 'hi',
         // ),
     );

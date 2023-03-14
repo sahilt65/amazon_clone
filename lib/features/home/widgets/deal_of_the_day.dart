@@ -7,37 +7,39 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class DealOfTheDay extends StatefulWidget {
-  const DealOfTheDay({super.key});
+  const DealOfTheDay({Key? key}) : super(key: key);
 
   @override
   State<DealOfTheDay> createState() => _DealOfTheDayState();
 }
 
 class _DealOfTheDayState extends State<DealOfTheDay> {
-  HomeServices homeServices = HomeServices();
   Product? product;
+  final HomeServices homeServices = HomeServices();
 
   @override
   void initState() {
-    // TODO: implement initState
-    fetchDealofDay();
-
     super.initState();
+    fetchDealOfDay();
+  }
+
+  void fetchDealOfDay() async {
+    product = await homeServices.fetchDealofDay(context: context);
+    setState(() {});
   }
 
   void navigateToDetailScreen() {
-    Navigator.pushNamed(context, ProductDetailScreen.routeName, arguments: product);
-  }
-
-  fetchDealofDay() {
-    homeServices.fetchDealofDay(context: context);
-    setState(() {});
+    Navigator.pushNamed(
+      context,
+      ProductDetailScreen.routeName,
+      arguments: product,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return product == null
-        ? CustomLoader()
+        ? const CustomLoader()
         : product!.name.isEmpty
             ? const SizedBox()
             : GestureDetector(
@@ -46,28 +48,30 @@ class _DealOfTheDayState extends State<DealOfTheDay> {
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      padding: EdgeInsets.only(left: 15, top: 15),
+                      padding: const EdgeInsets.only(left: 10, top: 15),
                       child: const Text(
-                        "Deal of the day",
-                        style: const TextStyle(fontSize: 20),
+                        'Deal of the day',
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
                     Image.network(
                       product!.images[0],
-                      fit: BoxFit.contain,
-                      height: 300,
-                      width: 300,
+                      height: 235,
+                      fit: BoxFit.fitHeight,
                     ),
                     Container(
-                      alignment: Alignment.topLeft,
                       padding: const EdgeInsets.only(left: 15),
-                      child: const Text("\$999.0", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                      alignment: Alignment.topLeft,
+                      child: const Text(
+                        '\$100',
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
                     Container(
                       alignment: Alignment.topLeft,
-                      padding: EdgeInsets.only(left: 15, top: 5, right: 40),
+                      padding: const EdgeInsets.only(left: 15, top: 5, right: 40),
                       child: const Text(
-                        'Description',
+                        'Rivaan',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -81,21 +85,25 @@ class _DealOfTheDayState extends State<DealOfTheDay> {
                               (e) => Image.network(
                                 e,
                                 fit: BoxFit.fitWidth,
-                                height: 100,
                                 width: 100,
+                                height: 100,
                               ),
                             )
                             .toList(),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 15, top: 15, bottom: 15),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                      ).copyWith(left: 15),
                       alignment: Alignment.topLeft,
-                      child: const Text(
-                        "See all deals",
-                        style: TextStyle(color: Colors.cyan),
+                      child: Text(
+                        'See all deals',
+                        style: TextStyle(
+                          color: Colors.cyan[800],
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               );

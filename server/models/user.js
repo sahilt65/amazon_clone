@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const { productSchema } = require('./product');
-// const authRouter = require("../route/auth");
-mongoose.set('strictQuery', false);
+const { productSchema}  = require('./product');
+// mongoose.set('strictQuery', false);
 
 
 const userSchema = mongoose.Schema({
@@ -53,5 +52,4 @@ const userSchema = mongoose.Schema({
     ]
 })
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = mongoose.model("User",userSchema);

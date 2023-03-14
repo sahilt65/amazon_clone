@@ -4,8 +4,6 @@ const User = require('../models/user')
 const admin = async (req, res, next)=> {
     try{
         const token = req.header("x-auth-token");
-        
-
         if(!token){
             return res.status(401).json({msg  : "No auth token, access denied"});
         }
@@ -17,11 +15,11 @@ const admin = async (req, res, next)=> {
         }
 
         const user = await User.findById(verified.id);
-        if(user.type == "user"|user.type == "seller"){
+        if(user.type == "user"|| user.type == "seller"){
             return res.status(401).json({msg : "You are not an admin"}); 
         }
 
-        req.admin = verified.id;
+        req.user = verified.id;
         req.token = token;
         next();
 

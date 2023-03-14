@@ -63,7 +63,7 @@ class _BottomBarState extends State<BottomBar> {
             label: '',
           ),
 
-          //Account
+          // Account
           BottomNavigationBarItem(
             icon: Container(
               width: bottomNavigationBarWidth,

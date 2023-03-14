@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:amazon_clone/features/cart/services/cart_services.dart';
 import 'package:amazon_clone/features/product_details/services/product_details_services.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,17 +23,22 @@ class CartProduct extends StatefulWidget {
 
 class _CartProductState extends State<CartProduct> {
   final ProductDetailServices productDetailServices = ProductDetailServices();
+  final CartServices cartServices = CartServices();
 
   void increaseQuantity(Product product) {
     productDetailServices.addToCart(context: context, product: product);
   }
 
-  void decreaseQuantity(Product product) {}
+  void decreaseQuantity(Product product) {
+    cartServices.removeFromCart(context: context, product: product);
+  }
+
   @override
   Widget build(BuildContext context) {
     final productCart = context.watch<UserProvider>().user.cart[widget.index];
-    final product = Product.fromMap(productCart);
-    final quantity = productCart['quantity'];
+    final product = Product.fromMap(productCart['product']);
+    final quantity = productCart['product']['quantity'];
+  
     // Product product = Product(
     //     name: "Iphone 12", description: "Hey this is gold", quantity: 12, images: [], category: 'Mobiles', price: 1230);
     return Column(
@@ -94,11 +100,10 @@ class _CartProductState extends State<CartProduct> {
                   ),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                color: Colors.black12,
                 child: Row(children: [
-                  //Increase
+                  //Decrease
                   InkWell(
-                    onTap: () => increaseQuantity(product),
+                    onTap: () => decreaseQuantity(product),
                     child: Container(
                       width: 35,
                       height: 32,
@@ -121,18 +126,21 @@ class _CartProductState extends State<CartProduct> {
                       height: 32,
                       alignment: Alignment.center,
                       child: Text(
-                        quantity,
+                        quantity.toString(),
                       ),
                     ),
                   ),
-                  //Decrease
-                  Container(
-                    width: 35,
-                    height: 32,
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.add,
-                      size: 18,
+                  //Increase
+                  InkWell(
+                    onTap: () => increaseQuantity(product),
+                    child: Container(
+                      width: 35,
+                      height: 32,
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.add,
+                        size: 18,
+                      ),
                     ),
                   )
                 ]),
