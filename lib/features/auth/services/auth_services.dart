@@ -96,7 +96,7 @@ class AuthService {
     }
   }
 
-  //Sign in
+  //Check token is valid or not and get user info
   void getUserData({
     required BuildContext context,
   }) async {

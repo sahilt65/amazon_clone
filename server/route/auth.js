@@ -60,7 +60,7 @@ authRouter.post("/api/signup", async (req, res) => {
 
 //validate User
 authRouter.post("/tokenIsValid", async (req, res) => {
-    try {
+  try {
       const token = req.header("x-auth-token");
       if (!token) return res.json(false);
       const verified = jwt.verify(token, "passwordKey");
@@ -69,10 +69,10 @@ authRouter.post("/tokenIsValid", async (req, res) => {
       const user = await User.findById(verified.id);
       if (!user) return res.json(false);
       res.json(true);
-    } catch (e) {
+  } catch (e) {
       res.status(500).json({ error: e.message });
-    }
-  });
+  }
+});
 
 
 //Get User data
